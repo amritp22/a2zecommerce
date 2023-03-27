@@ -1,9 +1,9 @@
 import './sign-in-form.styles.scss'
-import { useState } from "react";
+import { useState} from "react";
 import { signInWithGooglePopup,signInAuthUserWithEmailAndPassword,createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-
+// import { UserContext } from '../../context/user.context';
 const defaultFormFields={
     email:'',
     password:'',
@@ -12,10 +12,13 @@ const defaultFormFields={
 const SignInForm=()=>{
     const [formFields,setFormFields]=useState(defaultFormFields);
     const {email,password}=formFields
+    // const {setCurrentUser}=useContext(UserContext)
 
     const loggoogle=async ()=> {
-      const {user}=await signInWithGooglePopup();
-      await createUserDocumentFromAuth(user);
+      await signInWithGooglePopup();
+      //the below is statement is removed we centralziing 
+      //all such things in in one place using observer pattern in user context
+      // await createUserDocumentFromAuth(user);
   }
 
 
@@ -29,8 +32,9 @@ const SignInForm=()=>{
 
   
       try {
-        const response=await signInAuthUserWithEmailAndPassword(email,password);
-        console.log(response);
+        const {user}=await signInAuthUserWithEmailAndPassword(email,password);
+        // console.log(response);
+        //  setCurrentUser(user)
          resetFormFields();
 
       } catch (error) {
@@ -52,7 +56,7 @@ const SignInForm=()=>{
         setFormFields({...formFields,[name]:value})//...formFields maintain all other fields to be as it is
 
     }
-    console.log(formFields);
+    // console.log(formFields);
     return(
         <div className="sign-up-container">
           <h2>Already have a account</h2>

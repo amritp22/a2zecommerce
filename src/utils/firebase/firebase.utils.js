@@ -1,6 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,createUserWithEmailAndPassword,signInWithEmailAndPassword} from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, 
+  signOut,
+  onAuthStateChanged
+} from "firebase/auth";
 import {getFirestore,doc,getDoc,setDoc} from "firebase/firestore";
 
 const firebaseConfig = {
@@ -67,3 +76,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser=async ()=>await signOut(auth);
+///triggers when user sign or sign out
+export const onAuthStateChangedListener=(callback)=>onAuthStateChanged(auth,callback);

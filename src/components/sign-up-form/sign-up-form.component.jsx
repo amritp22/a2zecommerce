@@ -1,8 +1,9 @@
 import './sign-up-form.styles.scss'
-import { useState } from "react";
+import { useState} from "react";
 import { createAuthUserWithEmailAndPassword,createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button from '../button/button.component';
+// import { UserContext } from '../../context/user.context';
 
 const defaultFormFields={
     displayName:'',
@@ -13,8 +14,9 @@ const defaultFormFields={
 const SignUpForm=()=>{
     const [formFields,setFormFields]=useState(defaultFormFields);
     const {displayName,email,password,confirmPassword}=formFields
-
-
+    
+    // const {setCurrentUser}=useContext(UserContext);
+    // console.log('hit sugnup');
     const resetFormFields = () => {
       setFormFields(defaultFormFields);
     };
@@ -32,7 +34,7 @@ const SignUpForm=()=>{
           email,
           password
         );
-  
+        //  setCurrentUser(user);
         await createUserDocumentFromAuth(user, { displayName });
         resetFormFields();
       } catch (error) {
@@ -48,7 +50,7 @@ const SignUpForm=()=>{
         setFormFields({...formFields,[name]:value})//...formFields maintain all other fields to be as it is
 
     }
-    console.log(formFields);
+    // console.log(formFields);
     return(
         <div className="sign-up-container">
           <h2>don't have a account</h2>
